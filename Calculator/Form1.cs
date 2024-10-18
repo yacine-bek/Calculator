@@ -5,6 +5,8 @@ namespace Calculator
         public Form1()
         {
             InitializeComponent();
+            panel2.Visible = false;
+            panel1.Visible = true;
             this.KeyDown += new KeyEventHandler(YourForm_KeyDown);
             this.KeyPreview = true;
             button_0.TabStop = false;
@@ -28,6 +30,7 @@ namespace Calculator
             textBox2.TabStop = false;
             textBox3.TabStop = false;
             textBox_output.TabStop = false;
+            textBox_4.TabStop = false;
         }
         //Functions--------------------------------
         private void num_help(int num)
@@ -60,62 +63,65 @@ namespace Calculator
         //-----------------------------------------
         private void YourForm_KeyDown(object sender, KeyEventArgs e)
         {
-            switch (e.KeyCode)
+            if (panel2.Visible == false)
             {
-                case Keys.NumPad0:
-                    button_0.PerformClick();
-                    break;
-                case Keys.NumPad1:
-                    button_1.PerformClick();
-                    break;
-                case Keys.NumPad2:
-                    button_2.PerformClick();
-                    break;
-                case Keys.NumPad3:
-                    button_3.PerformClick();
-                    break;
-                case Keys.NumPad4:
-                    button_4.PerformClick();
-                    break;
-                case Keys.NumPad5:
-                    button_5.PerformClick();
-                    break;
-                case Keys.NumPad6:
-                    button_6.PerformClick();
-                    break;
-                case Keys.NumPad7:
-                    button_7.PerformClick();
-                    break;
-                case Keys.NumPad8:
-                    button_8.PerformClick();
-                    break;
-                case Keys.NumPad9:
-                    button_9.PerformClick();
-                    break;
-                case Keys.Add:
-                    button_add.PerformClick();
-                    break;
-                case Keys.Subtract:
-                    button_sub.PerformClick();
-                    break;
-                case Keys.Multiply:
-                    button_x.PerformClick();
-                    break;
-                case Keys.Divide:
-                    button_div.PerformClick();
-                    break;
-                case Keys.Enter:
-                    button_done.PerformClick();
-                    break;
-                case Keys.Delete:
-                    button_del.PerformClick();
-                    break;
-                case Keys.Decimal:
-                    button_fasila.PerformClick();
-                    break;
-                case Keys.Back:
-                    button_back.PerformClick();
-                    break;
+                switch (e.KeyCode)
+                {
+                    case Keys.NumPad0:
+                        button_0.PerformClick();
+                        break;
+                    case Keys.NumPad1:
+                        button_1.PerformClick();
+                        break;
+                    case Keys.NumPad2:
+                        button_2.PerformClick();
+                        break;
+                    case Keys.NumPad3:
+                        button_3.PerformClick();
+                        break;
+                    case Keys.NumPad4:
+                        button_4.PerformClick();
+                        break;
+                    case Keys.NumPad5:
+                        button_5.PerformClick();
+                        break;
+                    case Keys.NumPad6:
+                        button_6.PerformClick();
+                        break;
+                    case Keys.NumPad7:
+                        button_7.PerformClick();
+                        break;
+                    case Keys.NumPad8:
+                        button_8.PerformClick();
+                        break;
+                    case Keys.NumPad9:
+                        button_9.PerformClick();
+                        break;
+                    case Keys.Add:
+                        button_add.PerformClick();
+                        break;
+                    case Keys.Subtract:
+                        button_sub.PerformClick();
+                        break;
+                    case Keys.Multiply:
+                        button_x.PerformClick();
+                        break;
+                    case Keys.Divide:
+                        button_div.PerformClick();
+                        break;
+                    case Keys.Enter:
+                        button_done.PerformClick();
+                        break;
+                    case Keys.Delete:
+                        button_del.PerformClick();
+                        break;
+                    case Keys.Decimal:
+                        button_fasila.PerformClick();
+                        break;
+                    case Keys.Back:
+                        button_back.PerformClick();
+                        break;
+                }
             }
         }
         private void button_0_Click(object sender, EventArgs e)
@@ -205,7 +211,7 @@ namespace Calculator
         }
         private void button_div_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text=="")
+            if (textBox1.Text == "")
             {
                 this.ActiveControl = null;
                 return;
@@ -232,10 +238,16 @@ namespace Calculator
 
         }
         //-----------------------------------------------------------------------------------------------------------------
-
         private void button_done_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text.StartsWith(".") || textBox3.Text.StartsWith(".") || textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "")
+            if (panel2.Visible == true && textBox_1.Text != "" && textBox_2.Text != "" && textBox_3.Text != "")
+            {
+                float num1 = float.Parse(textBox_1.Text);
+                float num2 = float.Parse(textBox_2.Text);
+                float num3 = float.Parse(textBox_3.Text);
+                textBox_4.Text = ((num3 * num2) / num1).ToString();
+            }
+            else if (textBox1.Text.StartsWith(".") || textBox3.Text.StartsWith(".") || textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "")
             {
                 this.ActiveControl = null;
                 return;
@@ -292,7 +304,7 @@ namespace Calculator
                 textBox3.Text = "";
                 textBox2.Text = "";
             }
-            else if(textBox2.Text == "")
+            else if (textBox2.Text == "")
             {
                 if (textBox1.Text.Length > 0)
                 {
@@ -307,6 +319,23 @@ namespace Calculator
                 }
             }
             this.ActiveControl = null;
+        }
+
+        private void next_Click(object sender, EventArgs e)
+        {
+            button_fasila.Visible = false;
+            button_0.Visible = false;
+            panel2.Visible = true;
+        }
+        private void textBox_1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void back_Click(object sender, EventArgs e)
+        {
+            button_fasila.Visible = true;
+            button_0.Visible = true;
+            panel2.Visible = false;
         }
     }
 }
